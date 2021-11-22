@@ -1,7 +1,8 @@
 FROM openjdk:11
 WORKDIR /app
-COPY ./* /app/
-CMD java -Dserver.port=${SERVER_PORT:-}\
+COPY target/spring-petclinic-2.5.0-SNAPSHOT.jar /app/app.jar
+EXPOSE 80
+CMD java -Dserver.port=80\
           -Dserver.context-path=/\
           -Dspring.messages.basename=messages/messages\
           -Dlogging.level.org.springframework=${LOG_LEVEL:-INFO}\
