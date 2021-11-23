@@ -37,9 +37,11 @@ pipeline{
         stage('Build and Push Docker Image'){
             steps{
                 script{
-                    def dockerImage = docker.build("htres736/spring-petclinic-capstone:${env.BUILD_ID}")
-                    dockerImage.push()
-                    dockerImage.push('latest')
+                    docker.withRegistry('https://index.docker.io/v1/', 'jenkins-dockerhub'){                            
+                        def dockerImage = docker.build("htres736/spring-petclinic-capstone:${env.BUILD_ID}")
+                        dockerImage.push()
+                        dockerImage.push('latest')
+                    }
                 }
             }
         }
