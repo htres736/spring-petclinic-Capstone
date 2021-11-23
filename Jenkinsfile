@@ -38,7 +38,7 @@ pipeline{
             steps{
                 script{
                     def dockerImage = docker.build("htres736/spring-petclinic-capstone:${env.BUILD_ID}")
-                    dockerImage.push
+                    dockerImage.push()
                     dockerImage.push('latest')
                 }
             }
