@@ -5,40 +5,22 @@ pipeline{
         jdk 'JDK11'        
     }
     stages{
-        stage('Parallel Block') {
-            parallel{
-                stage('Code Validate'){
-                    steps{
-                    
-                        sh """
-                            echo "compile code"
-                            mvn validate
-                            echo "code compile complete"
-                        """
-                    }
+        stage('Code Compile'){
+            steps{                
+                sh """
+                    echo "compile code"
+                    mvn compile
+                    echo "code compile complete"
+                """                
                 }
-                stage('Code Compile'){
-                    steps{
-                        
-                        sh """
-                            echo "compile code"
-                            mvn compile
-                            echo "code compile complete"
-                        """
-                        
-                        }
-                }
-            }
-        }
+            }                    
         stage('Run Tests'){            
             steps{
-                
                 sh """
                     echo "test code"
                     mvn test
                     echo "tests complete"
-                """
-                
+                """                
             }
         }
         stage('Packaging'){
