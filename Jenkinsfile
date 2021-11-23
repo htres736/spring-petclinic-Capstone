@@ -53,11 +53,12 @@ pipeline{
             }
         }
         stage('Build and Push Docker Image'){
-            //agent{ dockerfile true }
-            script{
-                def dockerImage = docker.build("htres736/spring-petclinic-capstone:${env.BUILD_ID}")
-                dockerImage.push("htres736/spring-petclinic-capstone:${env.BUILD_ID}")
-                dockerImage.push('latest')
+            steps{
+                script{
+                    def dockerImage = docker.build("htres736/spring-petclinic-capstone:${env.BUILD_ID}")
+                    dockerImage.push("htres736/spring-petclinic-capstone:${env.BUILD_ID}")
+                    dockerImage.push('latest')
+                }
             }
         }
         stage('Deploy'){
